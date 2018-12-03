@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CuckTail</string>
+    <string name="lista_de_drinks">Lista de Drinks</string>
+    <string name="imagem_do_drink">Imagem do Drink</string>
 </resources>
