@@ -15,8 +15,11 @@ interface ListaDrinksContract {
 
     interface Presenter{
 
-        fun onLoadList()
+//        fun onLoadList()
 
+        fun carregaListaNonAlcoholic()
+        fun carregaListaOptionalAlcohol()
+        fun carregaListaAlcoholic()
     }
 
 }

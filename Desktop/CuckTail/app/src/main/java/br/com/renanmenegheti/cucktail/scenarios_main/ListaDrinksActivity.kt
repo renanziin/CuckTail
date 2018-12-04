@@ -4,7 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Message
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
+import android.webkit.ConsoleMessage
 import android.widget.ProgressBar
 import android.widget.Toast
 import br.com.renanmenegheti.cucktail.R
@@ -14,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_lista_drinks.*
 class ListaDrinksActivity : AppCompatActivity(), ListaDrinksContract.View {
 
 
+    var listaTodosDrinks: MutableList<Drink> = mutableListOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +26,9 @@ class ListaDrinksActivity : AppCompatActivity(), ListaDrinksContract.View {
 
 
         val presenter: ListaDrinksContract.Presenter = ListaDrinksPresenter(this)
-        presenter.onLoadList()
+        presenter.carregaListaOptionalAlcohol()
+        presenter.carregaListaNonAlcoholic()
+        presenter.carregaListaAlcoholic()
 
 //        val d1 = Drink("1", "Vodka Meme", "Trollar muito até ficar bom",
 //            "lmao", "yikes", "ayy", "","","",
@@ -43,12 +50,27 @@ class ListaDrinksActivity : AppCompatActivity(), ListaDrinksContract.View {
 
     override fun showList(drinks: List<Drink>) {
 
-        val adapter = DrinkAdapter(this, drinks)
-        adapter.setOnClickListener {position ->
-            val openBrowser = Intent(Intent.ACTION_VIEW)
-            openBrowser.data = Uri.parse(drinks.get(position).strDrinkThumb)
-            startActivity(openBrowser)
+
+
+        listaTodosDrinks.addAll(drinks)
+
+
+        Log.e("eoq",listaTodosDrinks.toString())
+
+
+
+        val adapter = DrinkAdapter(this, listaTodosDrinks)
+        adapter.setOnClickListener{position ->
+            Toast.makeText(this, drinks.get(position).toString(), Toast.LENGTH_LONG).show()
+
         }
+
+//        adapter.setOnClickListener {position ->
+//            val openBrowser = Intent(Intent.ACTION_VIEW)
+//            openBrowser.data = Uri.parse(drinks.get(position).strDrinkThumb)
+//            startActivity(openBrowser)
+//        }
+
 
         rvListaDrinks.adapter = adapter
         rvListaDrinks.layoutManager = LinearLayoutManager(this)

@@ -9,8 +9,8 @@ import retrofit2.Retrofit
 
 class ListaDrinksPresenter(val view: ListaDrinksContract.View): ListaDrinksContract.Presenter {
 
-    override fun onLoadList(){
-
+    // função para carregar a lista apenas com os Non Alcoholics
+    override fun carregaListaNonAlcoholic(){
         view.showLoading()
 
         val drinksService = RetrofitInicializer().createDrinksService()
@@ -32,48 +32,70 @@ class ListaDrinksPresenter(val view: ListaDrinksContract.View): ListaDrinksContr
                 view.hideLoading()
                 view.showMessage("Falha na conexao")
             }
+
+
+        })
+    }
+
+    override fun carregaListaOptionalAlcohol(){
+
+        view.showLoading()
+
+        val drinksService = RetrofitInicializer().createDrinksService()
+
+        var call = drinksService.getDrinksByAlcoholic("Optional_Alcohol")
+
+        call.enqueue(object : Callback<DrinkList> {
+            override fun onResponse(call: Call<DrinkList>, response: Response<DrinkList>) {
+                view.hideLoading()
+
+                if(response.body()!= null){
+                    view.showList(response.body()!!.drinks)
+                } else{
+                    view.showMessage("Sem drinks para hoje.")
+                }
+            }
+
+            override fun onFailure(call: Call<DrinkList>, t: Throwable) {
+                view.hideLoading()
+                view.showMessage("Falha na conexao")
+            }
+
+
         })
 
-
-
-
-//        call = drinksService.getDrinksByAlcoholic("Optional_Alcohol")
-//
-//        call.enqueue(object : Callback<DrinkList> {
-//            override fun onResponse(call: Call<DrinkList>, response: Response<DrinkList>) {
-//                view.hideLoading()
-//
-//                if(response.body()!= null){
-//                    view.showList(response.body()!!.drinks)
-//                } else{
-//                    view.showMessage("Sem drinks para hoje.")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<DrinkList>, t: Throwable) {
-//                view.hideLoading()
-//                view.showMessage("Falha na conexao")
-//            }
-//        })
-//
-//        call = drinksService.getDrinksByAlcoholic("Alcoholic")
-//
-//        call.enqueue(object : Callback<DrinkList> {
-//            override fun onResponse(call: Call<DrinkList>, response: Response<DrinkList>) {
-//                view.hideLoading()
-//
-//                if(response.body()!= null){
-//                    view.showList(response.body()!!.drinks)
-//                } else{
-//                    view.showMessage("Sem drinks para hoje.")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<DrinkList>, t: Throwable) {
-//                view.hideLoading()
-//                view.showMessage("Falha na conexao")
-//            }
-//        })
     }
+
+    override fun carregaListaAlcoholic(){
+
+        view.showLoading()
+
+        val drinksService = RetrofitInicializer().createDrinksService()
+
+        var call = drinksService.getDrinksByAlcoholic("Alcoholic")
+
+        call.enqueue(object : Callback<DrinkList> {
+            override fun onResponse(call: Call<DrinkList>, response: Response<DrinkList>) {
+                view.hideLoading()
+
+                if(response.body()!= null){
+                    view.showList(response.body()!!.drinks)
+                } else{
+                    view.showMessage("Sem drinks para hoje.")
+                }
+            }
+
+            override fun onFailure(call: Call<DrinkList>, t: Throwable) {
+                view.hideLoading()
+                view.showMessage("Falha na conexao")
+            }
+
+
+        })
+
+    }
+
+
+
 
 }
