@@ -1,4 +1,4 @@
-package br.com.renanmenegheti.cucktail.scenarios_main
+package br.com.renanmenegheti.cucktail.scenarios_main.listaDrinks
 
 import br.com.renanmenegheti.cucktail.entities.Drink
 
@@ -17,8 +17,6 @@ interface ListaDrinksContract {
 
 //        fun onLoadList()
 
-        fun carregaListaNonAlcoholic()
-        fun carregaListaOptionalAlcohol()
         fun carregaListaAlcoholic()
     }
 

@@ -1,20 +1,17 @@
-package br.com.renanmenegheti.cucktail.scenarios_main
+package br.com.renanmenegheti.cucktail.scenarios_main.listaDrinks
 
-import android.content.Intent
-import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Message
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.webkit.ConsoleMessage
 import android.widget.ProgressBar
 import android.widget.Toast
 import br.com.renanmenegheti.cucktail.R
 import br.com.renanmenegheti.cucktail.entities.Drink
 import kotlinx.android.synthetic.main.activity_lista_drinks.*
 
-class ListaDrinksActivity : AppCompatActivity(), ListaDrinksContract.View {
+class ListaDrinksActivity : AppCompatActivity(),
+    ListaDrinksContract.View {
 
 
     var listaTodosDrinks: MutableList<Drink> = mutableListOf()
@@ -25,24 +22,10 @@ class ListaDrinksActivity : AppCompatActivity(), ListaDrinksContract.View {
         setContentView(R.layout.activity_lista_drinks)
 
 
-        val presenter: ListaDrinksContract.Presenter = ListaDrinksPresenter(this)
-        presenter.carregaListaOptionalAlcohol()
-        presenter.carregaListaNonAlcoholic()
-        presenter.carregaListaAlcoholic()
+        val presenter: ListaDrinksContract.Presenter =
+            ListaDrinksPresenter(this)
 
-//        val d1 = Drink("1", "Vodka Meme", "Trollar muito até ficar bom",
-//            "lmao", "yikes", "ayy", "","","",
-//            "2", "4", "17", "","","",
-//            "https://www.thecocktaildb.com/images/media/drink/xwxyux1441254243.jpg", "Alcoholic")
-//
-//        val d2 = Drink("2", "Vodka Fizz", "tilt",
-//            "lmao", "yikes", "ayy", "","","",
-//            "2", "4", "17", "","","",
-//            "https://www.thecocktaildb.com/images/media/drink/wpxpvu1439905379.jpg", "Alcoholic")
-//
-//        val testList = listOf(d1, d2)
-//
-//        showList(testList)
+        presenter.carregaListaAlcoholic()
 
 
 
@@ -52,14 +35,11 @@ class ListaDrinksActivity : AppCompatActivity(), ListaDrinksContract.View {
 
 
 
-        listaTodosDrinks.addAll(drinks)
-
-
-        Log.e("eoq",listaTodosDrinks.toString())
+        Log.d("eoq",drinks.toString())
 
 
 
-        val adapter = DrinkAdapter(this, listaTodosDrinks)
+        val adapter = DrinkAdapter(this, drinks)
         adapter.setOnClickListener{position ->
             Toast.makeText(this, drinks.get(position).toString(), Toast.LENGTH_LONG).show()
 

@@ -10,6 +10,8 @@ interface DrinksService {
     @GET("filter.php")
     fun getDrinksByAlcoholic(@Query("a") alcoholic: String): Call<DrinkList>
 
+    @GET("lookup.php")
+    fun getDrinksById(@Query("i") id: String): Call<DrinkList>
 
 
 }
