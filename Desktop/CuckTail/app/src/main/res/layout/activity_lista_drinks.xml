@@ -5,15 +5,16 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorAccent"
         tools:context=".scenarios_main.listaDrinks.ListaDrinksActivity">
 
 
-    <TextView
+    <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lista_de_drinks"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"/>
+            android:text="Drink aleatório"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="16dp"/>
 
     <ProgressBar
             android:layout_width="wrap_content"
@@ -27,7 +28,8 @@
             android:layout_height="match_parent"
             android:id="@+id/rvListaDrinks"
             tools:listitem="@layout/drinks_item"
-            android:layout_marginTop="80dp"/>
+            android:layout_marginTop="60dp"
+            android:background="@color/branco"/>
 
 
 

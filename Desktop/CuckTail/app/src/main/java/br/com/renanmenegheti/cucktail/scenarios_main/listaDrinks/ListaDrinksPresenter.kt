@@ -10,7 +10,7 @@ class ListaDrinksPresenter(val view: ListaDrinksContract.View): ListaDrinksContr
 
 
 
-    override fun carregaListaAlcoholic(){
+    override fun getListaAlcoholic(){
 
         view.showLoading()
 
@@ -38,6 +38,7 @@ class ListaDrinksPresenter(val view: ListaDrinksContract.View): ListaDrinksContr
         })
 
     }
+
 
 
 

@@ -17,7 +17,7 @@ interface ListaDrinksContract {
 
 //        fun onLoadList()
 
-        fun carregaListaAlcoholic()
+        fun getListaAlcoholic()
     }
 
 }
