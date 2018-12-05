@@ -1,29 +1,40 @@
-package br.com.renanmenegheti.cucktail.scenarios_main.detalheDrink
+package br.com.renanmenegheti.cucktail.scenarios.detalheDrink
 
+import android.content.Context
+import br.com.renanmenegheti.cucktail.database.AppDatabase
 import br.com.renanmenegheti.cucktail.entities.Drink
 import br.com.renanmenegheti.cucktail.entities.DrinkList
 import br.com.renanmenegheti.cucktail.network.RetrofitInicializer
+import org.jetbrains.anko.doAsync
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 class DetalheDrinkPresenter(val view: DetalheDrinkContract.View): DetalheDrinkContract.Presenter{
 
 
 
-    override fun salvaDrinkDispositivo(drink: Drink) {
+    override fun onSalvaDrinkDispositivo(context: Context, drink: Drink) {
+
+
+        val drinkDao = AppDatabase.getInstance(context).drinkDao()
+        doAsync {
+            drinkDao.insert(drink)
+        }
+
+
+
 
     }
 
 
-    override fun getDrinkAleatorio() {
+    override fun onGetDrinkAleatorio() {
 
         view.showLoading()
 
         val drinkService = RetrofitInicializer().createDrinksService()
 
-        var call = drinkService.getRandomDrink()
+        val call = drinkService.getRandomDrink()
 
         call.enqueue(object: Callback<DrinkList>{
 
@@ -46,13 +57,13 @@ class DetalheDrinkPresenter(val view: DetalheDrinkContract.View): DetalheDrinkCo
     }
 
 
-    override fun getDrink(id: String) {
+    override fun onGetDrink(id: String) {
 
         view.showLoading()
 
         val drinkService = RetrofitInicializer().createDrinksService()
 
-        var call = drinkService.getDrinksById(id)
+        val call = drinkService.getDrinksById(id)
 
         call.enqueue(object: Callback<DrinkList>{
 

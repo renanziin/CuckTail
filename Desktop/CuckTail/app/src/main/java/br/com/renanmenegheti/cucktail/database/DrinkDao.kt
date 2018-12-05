@@ -1,4 +1,4 @@
-package br.com.renanmenegheti.cucktail
+package br.com.renanmenegheti.cucktail.database
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert

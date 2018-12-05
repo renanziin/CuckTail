@@ -1,7 +1,7 @@
-package br.com.renanmenegheti.cucktail.scenarios_main.detalheDrink
+package br.com.renanmenegheti.cucktail.scenarios.detalheDrink
 
+import android.content.Context
 import br.com.renanmenegheti.cucktail.entities.Drink
-import br.com.renanmenegheti.cucktail.entities.DrinkList
 
 interface DetalheDrinkContract {
 
@@ -9,16 +9,16 @@ interface DetalheDrinkContract {
 
         abstract fun showLoading()
         abstract fun showMessage(mensagem: String)
-        fun hideLoading()
+        abstract fun hideLoading()
         abstract fun showDrink(drinks: List<Drink>)
 
     }
 
     interface Presenter{
 
-        abstract fun getDrink(id: String)
-        abstract fun getDrinkAleatorio()
-        abstract fun salvaDrinkDispositivo(drink: Drink)
+        abstract fun onGetDrink(id: String)
+        abstract fun onGetDrinkAleatorio()
+        abstract fun onSalvaDrinkDispositivo(context: Context, drink: Drink)
 
 
     }

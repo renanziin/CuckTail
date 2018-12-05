@@ -1,4 +1,4 @@
-package br.com.renanmenegheti.cucktail
+package br.com.renanmenegheti.cucktail.database
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
@@ -17,14 +17,17 @@ public abstract class AppDatabase: RoomDatabase() {
 
         private fun create(context: Context): AppDatabase?{
 
-            return Room.databaseBuilder(context, AppDatabase::class.java,DB_NAME).build()
+            return Room.databaseBuilder(context, AppDatabase::class.java,
+                DB_NAME
+            ).build()
 
         }
 
-        public fun getInstance(context: Context): AppDatabase{
+        public fun getInstance(context: Context): AppDatabase {
 
             if (instance == null){
-                instance = create(context)
+                instance =
+                        create(context)
             }
 
             return instance!!

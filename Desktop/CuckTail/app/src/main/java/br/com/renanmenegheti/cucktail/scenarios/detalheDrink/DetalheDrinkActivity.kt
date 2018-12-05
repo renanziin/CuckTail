@@ -1,4 +1,4 @@
-package br.com.renanmenegheti.cucktail.scenarios_main.detalheDrink
+package br.com.renanmenegheti.cucktail.scenarios.detalheDrink
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -6,19 +6,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ProgressBar
 import android.widget.Toast
-import br.com.renanmenegheti.cucktail.AppDatabase
 import br.com.renanmenegheti.cucktail.R
 import br.com.renanmenegheti.cucktail.entities.Drink
-import br.com.renanmenegheti.cucktail.entities.DrinkList
 import br.com.renanmenegheti.cucktail.utils.GlideApp
-import br.com.renanmenegheti.cucktail.utils.MyAppGlideModule
 import kotlinx.android.synthetic.main.activity_detalhe_drink.*
-import kotlinx.android.synthetic.main.activity_lista_drinks.*
-import org.jetbrains.anko.doAsync
 
 class DetalheDrinkActivity : AppCompatActivity(), DetalheDrinkContract.View {
 
 
+    val presenter : DetalheDrinkContract.Presenter = DetalheDrinkPresenter(this)
     var drink: Drink? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,14 +22,12 @@ class DetalheDrinkActivity : AppCompatActivity(), DetalheDrinkContract.View {
         setContentView(R.layout.activity_detalhe_drink)
 
 
-
-        val presenter : DetalheDrinkContract.Presenter = DetalheDrinkPresenter(this)
-
+        //verificando se veio do botão DrinkAleatorio ou de um click da Lista Principal (RecyclerView)
         if (intent.getStringExtra("idDrink") == null)
         {
-            presenter.getDrinkAleatorio()
+            presenter.onGetDrinkAleatorio()
         } else {
-            presenter.getDrink(intent.getStringExtra("idDrink"))
+            presenter.onGetDrink(intent.getStringExtra("idDrink"))
         }
 
     }
@@ -46,25 +40,23 @@ class DetalheDrinkActivity : AppCompatActivity(), DetalheDrinkContract.View {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         when(item!!.itemId){
-            R.id.menuFavoritar -> salvaDrink()
+            R.id.menuFavoritar ->
+
+                //sem isso, o usuario poderia clicar no Salvar Drink antes do drink carregar e o drink ser nulo (travando o app)
+                if (drink != null){
+                    presenter.onSalvaDrinkDispositivo(this,drink!!)
+                }
         }
 
         return super.onOptionsItemSelected(item)
     }
 
-    private fun salvaDrink() {
-        val drinkDao = AppDatabase.getInstance(this).drinkDao()
-        doAsync {
-            drinkDao.insert(drink!!)
-        }
 
-
-
-    }
 
 
     override fun showDrink(drinks: List<Drink>) {
 
+        //atribuindo ao atributo da classe para poder usar como parâmetro quando salvarmos no dispositivo
         drink = drinks[0]
 
         tvNomeDrinkDetalhe.text = "Nome do Drink: ${drinks[0].strDrink}"

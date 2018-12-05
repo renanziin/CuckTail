@@ -1,4 +1,4 @@
-package br.com.renanmenegheti.cucktail.scenarios_main.listaDrinks
+package br.com.renanmenegheti.cucktail.scenarios.listaDrinks
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
