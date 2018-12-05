@@ -1,6 +1,10 @@
 package br.com.renanmenegheti.cucktail.entities
 
-data class Drink(val idDrink: String, val strDrink: String, val strInstructions: String,
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+
+@Entity
+data class Drink(@PrimaryKey val idDrink: String, val strDrink: String, val strInstructions: String,
                  val strIngredient1: String, val strIngredient2: String, val strIngredient3: String,
                  val strIngredient4: String, val strIngredient5: String, val strIngredient6: String,
                  val strIngredient7: String, val strIngredient8: String, val strIngredient9: String,
