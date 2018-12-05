@@ -5,4 +5,5 @@
     <string name="nome_do_drink">Nome do Drink:</string>
     <string name="modo_de_preparo">Modo de Preparo:</string>
     <string name="ingredientes">Ingredientes:</string>
+    <string name="drink_aleatorio">Drink aleatório</string>
 </resources>

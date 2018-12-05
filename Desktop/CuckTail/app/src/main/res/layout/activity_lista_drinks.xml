@@ -10,9 +10,10 @@
 
 
     <Button
+            android:id="@+id/btnDrinkAleatorio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Drink aleatório"
+            android:text="@string/drink_aleatorio"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="16dp"/>
 

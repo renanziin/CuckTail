@@ -23,7 +23,13 @@ class DetalheDrinkActivity : AppCompatActivity(), DetalheDrinkContract.View {
 
         val presenter : DetalheDrinkContract.Presenter = DetalheDrinkPresenter(this)
 
-        presenter.getDrink(intent.getStringExtra("idDrink"))
+        if (intent.getStringExtra("idDrink") == null)
+        {
+            presenter.getDrinkAleatorio()
+        } else {
+            presenter.getDrink(intent.getStringExtra("idDrink"))
+        }
+
     }
 
 

@@ -17,6 +17,9 @@ interface DetalheDrinkContract {
     interface Presenter{
 
         abstract fun getDrink(id: String)
+        abstract fun getDrinkAleatorio()
+        abstract fun salvaDrinkDispositivo(drink: Drink)
+
 
     }
 

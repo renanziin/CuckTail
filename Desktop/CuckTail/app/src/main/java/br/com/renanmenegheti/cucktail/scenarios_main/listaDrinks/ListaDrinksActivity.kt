@@ -30,6 +30,13 @@ class ListaDrinksActivity : AppCompatActivity(),
         presenter.getListaAlcoholic()
 
 
+        btnDrinkAleatorio.setOnClickListener(){
+            val buscarDrinkAleatorio = Intent(this, DetalheDrinkActivity::class.java)
+            startActivity(buscarDrinkAleatorio)
+
+        }
+
+
 
     }
 
