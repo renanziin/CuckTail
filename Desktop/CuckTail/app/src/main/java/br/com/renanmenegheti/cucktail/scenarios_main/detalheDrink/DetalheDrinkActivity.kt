@@ -2,8 +2,11 @@ package br.com.renanmenegheti.cucktail.scenarios_main.detalheDrink
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ProgressBar
 import android.widget.Toast
+import br.com.renanmenegheti.cucktail.AppDatabase
 import br.com.renanmenegheti.cucktail.R
 import br.com.renanmenegheti.cucktail.entities.Drink
 import br.com.renanmenegheti.cucktail.entities.DrinkList
@@ -11,9 +14,12 @@ import br.com.renanmenegheti.cucktail.utils.GlideApp
 import br.com.renanmenegheti.cucktail.utils.MyAppGlideModule
 import kotlinx.android.synthetic.main.activity_detalhe_drink.*
 import kotlinx.android.synthetic.main.activity_lista_drinks.*
+import org.jetbrains.anko.doAsync
 
 class DetalheDrinkActivity : AppCompatActivity(), DetalheDrinkContract.View {
 
+
+    var drink: Drink? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +38,34 @@ class DetalheDrinkActivity : AppCompatActivity(), DetalheDrinkContract.View {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detalhe_drink, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        when(item!!.itemId){
+            R.id.menuFavoritar -> salvaDrink()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun salvaDrink() {
+        val drinkDao = AppDatabase.getInstance(this).drinkDao()
+        doAsync {
+            drinkDao.insert(drink!!)
+        }
+
+
+
+    }
+
 
     override fun showDrink(drinks: List<Drink>) {
+
+        drink = drinks[0]
 
         tvNomeDrinkDetalhe.text = "Nome do Drink: ${drinks[0].strDrink}"
         tvModoPreparo.text = "Modo de Preparo: ${drinks[0].strInstructions}"

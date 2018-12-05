@@ -15,5 +15,8 @@ interface DrinkDao {
     @Query("SELECT * FROM Drink")
     fun getAll(): List<Drink>
 
+    @Query("DELETE FROM Drink")
+    fun limparDrinksSalvos()
+
 
 }

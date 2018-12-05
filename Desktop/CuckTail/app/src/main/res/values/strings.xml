@@ -6,4 +6,7 @@
     <string name="modo_de_preparo">Modo de Preparo:</string>
     <string name="ingredientes">Ingredientes:</string>
     <string name="drink_aleatorio">Drink aleatório</string>
+    <string name="drinks_salvos">Drinks Salvos</string>
+    <string name="favoritar">Favoritar</string>
+    <string name="limpar_drinks_salvos">Limpar Drinks Salvos</string>
 </resources>
